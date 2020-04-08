@@ -370,6 +370,7 @@ namespace TerrariaItemCounter
                     FileName = savePath,
                     RestoreDirectory = true,
                     DefaultExt = ".bmp",
+                    Filter = "Bitmap Image(*.bmp)|*.bmp",
                 };
                 var result = dialog.ShowDialog(this);
                 if (result == true)
