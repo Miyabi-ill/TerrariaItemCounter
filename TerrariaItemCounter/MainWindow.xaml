@@ -1,0 +1,60 @@
+﻿<Window x:Class="TerrariaItemCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TerrariaItemCounter"
+        mc:Ignorable="d"
+        Title="Terraria Item Search" Height="450" Width="1200">
+	<Grid x:Name="MainGrid" AllowDrop="True" PreviewDragOver="Log_DragOver" PreviewDrop="Log_Drop">
+		<DockPanel LastChildFill="True">
+			<Grid x:Name="SearchGrid" DockPanel.Dock="Top">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition Width="150"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<DockPanel LastChildFill="False">
+						<ComboBox DockPanel.Dock="Right" x:Name="ItemNameSearch" Margin="5" Width="200" IsEditable="True"/>
+						<Label DockPanel.Dock="Right">Item name</Label>
+					</DockPanel>
+					<DockPanel Grid.Row="1" LastChildFill="False">
+						<ComboBox DockPanel.Dock="Right" x:Name="ItemPrefixSearch" Margin="5" Width="200" IsEditable="True"/>
+						<Label DockPanel.Dock="Right">Prefix</Label>
+					</DockPanel>
+					<TextBlock x:Name="MatchCountText" Grid.Column="1" VerticalAlignment="Center"/>
+					<Button x:Name="SearchButton" Margin="5" Grid.Row="1" Grid.Column="1" Click="SearchButton_Click">Search</Button>
+				</Grid>
+			</Grid>
+			<DockPanel x:Name="HelpPanel" Height="30" DockPanel.Dock="Bottom" LastChildFill="False">
+				<TextBlock x:Name="CountText" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+				<Button x:Name="SaveImageButton" Click="SaveImageButton_Click" Margin="5" DockPanel.Dock="Right">Export Map Image</Button>
+				<CheckBox x:Name="MatchIDOnly" DockPanel.Dock="Right" VerticalAlignment="Center" Content="Match ID only" Margin="5"/>
+			</DockPanel>
+			<DockPanel x:Name="SearchResultPanel" DockPanel.Dock="Right" Width="350" LastChildFill="True">
+				<TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center">-- Search Result --</TextBlock>
+				<ListView x:Name="SearchResult">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<StackPanel MouseDown="SearchResult_MouseDown" Orientation="Horizontal">
+								<Label Content="{Binding Key}" Width="100"/>
+								<Label>Count:</Label>
+								<Label Content="{Binding Value}"/>
+							</StackPanel>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</DockPanel>
+			<Grid>
+				<Grid x:Name="DropHelpGrid" Panel.ZIndex="-1" VerticalAlignment="Center" HorizontalAlignment="Center">
+					<TextBlock Text="Drag &amp; Drop here" FontSize="50"/>
+				</Grid>
+				<local:ZoomImageViewer x:Name="ImageViewer"/>
+			</Grid>
+		</DockPanel>
+	</Grid>
+</Window>
