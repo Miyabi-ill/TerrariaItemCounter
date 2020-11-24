@@ -43,7 +43,7 @@ namespace TerrariaItemCounter
 
             MapHelper.Initialize();
             Lang.InitializeLegacyLocalization();
-            LanguageManager.Instance.SetLanguage(GameCulture.English);
+            LanguageManager.Instance.SetLanguage(GameCulture.DefaultCulture);
 
             _ = new Main();
             Main.instance.Initialize();
@@ -55,7 +55,7 @@ namespace TerrariaItemCounter
             var tileIdFields = typeof(TileID).GetFields(BindingFlags.Static | BindingFlags.Public);
             foreach (var field in tileIdFields)
             {
-                if (field.Name == "Count" || field.Name == "None")
+                if (field.Name == "Count" || field.Name == "None" || field.DeclaringType != typeof(ushort))
                 {
                     continue;
                 }
@@ -108,7 +108,7 @@ namespace TerrariaItemCounter
 
             Main.mapReady = false;
             Main.ActiveWorldFileData = new WorldFileData(path, false);
-            WorldFile.loadWorld(false);
+            WorldFile.LoadWorld(false);
         }
 
         public int CountTiles(ushort tileId, int frameX, int frameY)
